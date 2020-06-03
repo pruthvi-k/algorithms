@@ -14,4 +14,7 @@ function findSmallestNumber(arr) {
 
 findSmallestNumber([1, 3, 6, 4, 1, 2]); //op -> 5
 findSmallestNumber([1, 2, 3]); //op -> 4
-findSmallestNumber([−1, −3]); //op -> 1
+let arr = [];
+arr.push(-1);
+arr.push(-3);
+findSmallestNumber(); //op -> 1
