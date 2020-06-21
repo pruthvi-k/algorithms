@@ -1,0 +1,26 @@
+<!-- 
+// 1) Make square alternate between "square" and "round" shapes,
+// with a transition of 0.3 seconds, when you click on it -->
+<style>
+  .square {
+    border: solid 1px blue;
+    height: 100px;
+    width: 100px;
+    background-color: blue;
+    transition: all;
+    transition-duration: 0.3s;
+  }
+</style>
+<script>
+  var isSquare = true;
+  function applyTransition(el) {
+    if (isSquare) {
+      document.querySelector(".square").style.borderRadius = "50%";
+      isSquare = false;
+    } else {
+      document.querySelector(".square").style.borderRadius = "0%";
+      isSquare = true;
+    }
+  }
+</script>
+<div class="square" onClick="applyTransition()"></div>
