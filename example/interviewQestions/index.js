@@ -94,9 +94,7 @@ function Person(first, last, age, eye) {
   this.lastName = last;
   this.age = age;
   this.eyeColor = eye;
-  this.getName1 = function () {
-    console.log(`${this.firstName} ${this.lastName} age ${this.age}`);
-  };
+
   this.getName = function () {
     console.log(`2 ${this.firstName} ${this.lastName} age ${this.age}`);
   };
@@ -108,6 +106,44 @@ function Employee(first, last, age, eye, empid) {
   Person.call(first, last, age, eye);
   this.empid = empid;
   this.getId = function () {
-    console.log(`2 ${this.firstName} ${this.lastName} age ${this.age}`);
+    console.log(
+      `3 ${this.firstName} ${this.lastName} age ${this.age}  empid ${this.empid}`
+    );
   };
 }
+
+// currying and partial application
+function add(x, y, z) {
+  return x + y + z;
+}
+function curryPartial(func) {
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function (...args2) {
+        return curried.apply(this, args.concat(args2));
+      };
+    }
+  };
+}
+
+curryPartial(add)(1)(2)(3); //6
+curryPartial(add, 1)(2)(3); //6
+curryPartial(add, 1)(2, 3); //6
+curryPartial(add, 1, 2)(3); //6
+curryPartial(add, 1, 2, 3); //6
+curryPartial(add)(1, 2, 3); //6
+curryPartial(add)(1, 2)(3); //6
+curryPartial(add)()(1, 2, 3); //6
+curryPartial(add)()(1)()()(2)(3); //6
+
+curryPartial(add)()(1)()()(2)(3, 4, 5, 6); //6
+curryPartial(add, 1)(2, 3, 4, 5); //6
+
+curryPartial(curryPartial(curryPartial(add, 1), 2), 3); //6
+curryPartial(curryPartial(add, 1, 2), 3); //6
+curryPartial(curryPartial(add, 1), 2, 3); //6
+curryPartial(curryPartial(add, 1), 2)(3); //6
+curryPartial(curryPartial(add, 1)(2), 3); //6
+curryPartial(curryPartial(curryPartial(add, 1)), 2, 3); //6
